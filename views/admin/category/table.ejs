@@ -1,0 +1,32 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">No.</th>
+      <th>Name</th>
+      <th>Action(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 1; i <= data.length;i++){ %>
+    <tr>
+      <td class="text-center"><%= i.toString() %></td>
+      <td><%= data[i-1].name %></td>
+      <td class="text-center">
+        <form
+          action="/category/<%= data[i-1]._id %>?_method=DELETE"
+          method="post"
+        >
+          <a
+            href="category/<%= data[i-1]._id %>"
+            class="btn btn-warning text-white"
+            ><i class="fas fa-edit"></i
+          ></a>
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
