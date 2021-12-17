@@ -1,0 +1,36 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">No.</th>
+      <th>Coin Name</th>
+      <th>Price</th>
+      <th>Coin Quantity</th>
+      <th class="text-center">Action(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 1; i <= data.length;i++){ %>
+    <tr>
+      <td class="text-center"><%= i.toString() %></td>
+      <td><%= data[i-1].coinName %></td>
+      <td><%= data[i-1].price %></td>
+      <td><%= data[i-1].coinQuantity %></td>
+      <td class="text-center">
+        <form
+          action="/nominal/<%= data[i-1]._id %>?_method=DELETE"
+          method="post"
+        >
+          <a
+            href="nominal/<%= data[i-1]._id %>"
+            class="btn btn-warning text-white"
+            ><i class="fas fa-edit"></i
+          ></a>
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
