@@ -3,15 +3,7 @@ const dataReturner = {
   title: "Storegg Admin | Dashboard",
 };
 
-const index = (req, res, next) => {
-  const alertMessage = req.flash("alertMessage");
-  const alertStatus = req.flash("alertStatus");
-
-  const alert = {
-    message: alertMessage,
-    status: alertStatus,
-  };
-  dataReturner += alert;
+const index = (req, res) => {
   res.render("index", dataReturner);
 };
 
