@@ -53,4 +53,9 @@ const actionLogin = async (req, res) => {
   }
 };
 
-module.exports = { index, actionLogin };
+const logout = async (req, res) => {
+  req.session.user = null;
+  res.redirect("/");
+};
+
+module.exports = { index, actionLogin, logout };
