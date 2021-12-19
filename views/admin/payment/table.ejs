@@ -1,0 +1,39 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">No.</th>
+      <th>Type</th>
+      <th>Bank Name</th>
+      <th>Status</th>
+      <th>Action(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 1; i <= data.length;i++){ %>
+    <tr>
+      <td class="text-center"><%= i.toString() %></td>
+      <td><%= data[i-1].type %></td>
+      <td><% data[i-1].banks.forEach(e => { %>
+        <h3 class="badge badge-primary"><%= e.bankName %> - <%= e.name %></h3>
+        <% }) %></td>
+      <td>
+        <form action="payment/status/<%= data[i-1]._id %>?_method=PUT" method='post'>
+        <button type='submit' name='data' value='<%= data[i-1].status %>' class="badge badge-<%= data[i-1].status === 'Y' ? "success" : "danger" %>">
+          <%= data[i-1].status === "Y" ? "Active" : "Non-Active" %>
+        </button>
+      </form>
+    </td>
+      <td class="text-center">
+        <form action="/payment/<%= data[i-1]._id %>?_method=DELETE" method="post">
+          <a href="payment/<%= data[i-1]._id %>" class="btn btn-warning text-white"
+            ><i class="fas fa-edit"></i
+          ></a>
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
