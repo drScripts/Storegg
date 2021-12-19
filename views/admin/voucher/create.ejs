@@ -1,0 +1,142 @@
+<%- include ../../sections/head.ejs %> <%- include ../../sections/navbar.ejs %>
+<%- include ../../sections/sidebar.ejs %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Add Voucher</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">
+              <a href="/voucher">Voucher</a>
+            </li>
+            <li class="breadcrumb-item active">Create</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <%- include ../../sections/messages.ejs %>
+      <div class="row">
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Add Voucher Form</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form
+              action="/voucher/create"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="Name">Game Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Name"
+                    placeholder="Enter Game Name"
+                    name="name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Category</label>
+                  <select
+                    class="form-control select2"
+                    style="width: 100%"
+                    required
+                    name="category"
+                  >
+                    <option selected="selected">Select Category</option>
+                    <% data.category.forEach(cat => {%>
+                    <option value="<%= cat._id %>"><%= cat.name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Nominal</label>
+                  <div class="select2-purple">
+                    <select
+                      class="form-control select2"
+                      style="width: 100%"
+                      multiple
+                      required
+                      name="nominals"
+                      data-placeholder="Select Nominal"
+                    >
+                      <% data.nominal.forEach(nom => {%>
+                      <option value="<%= nom._id %>">
+                        <%= nom.coinName %> - <%= nom.price %>
+                      </option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="Thumbnail">Voucher Thumbnail</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="Thumbnail"
+                    placeholder="Enter Voucher Thumbnail"
+                    name="thumbnail"
+                    accept="image/*"
+                    required
+                  />
+                  <img
+                    src="https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg"
+                    alt="Preview"
+                    id="preview"
+                    class="rounded d-block mt-4"
+                    style="width: 200px; height: 200px"
+                  />
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+
+          <!-- /.card -->
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+<%- include ../../sections/footer.ejs%>
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        $("#preview").attr("src", e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#Thumbnail").change(function () {
+    readURL(this);
+  });
+</script>

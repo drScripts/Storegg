@@ -1,0 +1,58 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">No.</th>
+      <th>Game Name</th>
+      <th>Category</th>
+      <th>Nominals</th>
+      <th class="text-center">Thumbnail</th>
+      <th class="text-center">Status</th>
+      <th class="text-center">Action(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 1; i <= data.length;i++){ %>
+    <tr>
+      <td class="text-center"><%= i.toString() %></td>
+      <td><%= data[i-1].name %></td>
+      <td><%= data[i-1].category.name %></td>
+      <td>
+        <% data[i-1].nominals.forEach(e => { %>
+        <h3 class="badge badge-primary"><%= e.coinName %> - <%= e.price %></h3>
+        <% }) %>
+      </td>
+      <td class="text-center">
+        <img
+          src="/uploads/<%= data[i-1].thumbnail %>"
+          alt="<%= data[i-1].thumbnail %>"
+          width="150"
+          height="150"
+          class="rounded"
+        />
+      </td>
+      <td class="text-center">
+        <form action="voucher/status/<%= data[i-1]._id %>?_method=PUT" method='post'>
+          <button type='submit' name='data' value='<%= data[i-1].status %>' class="badge badge-<%= data[i-1].status === 'Y' ? "success" : "danger" %>">
+            <%= data[i-1].status === "Y" ? "Active" : "Non-Active" %>
+          </button>
+        </form>
+      </td>
+      <td class="text-center">
+        <form
+          action="voucher/<%= data[i-1]._id %>?_method=DELETE"
+          method="post"
+        >
+          <a
+            href="voucher/<%= data[i-1]._id %>"
+            class="btn btn-warning text-white"
+            ><i class="fas fa-edit"></i
+          ></a>
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
