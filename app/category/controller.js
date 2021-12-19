@@ -9,6 +9,7 @@ const {
 const dataReturner = {
   url: "category",
   title: "Storegg Admin | Category",
+  username: null,
 };
 
 const category = async (req, res) => {
@@ -19,6 +20,7 @@ const category = async (req, res) => {
     status: req.flash("aStatus"),
   };
   dataReturner.data = categories.data;
+  dataReturner.username = req.session.user.username;
   res.render("admin/category", dataReturner);
 };
 
@@ -27,7 +29,7 @@ const createView = (req, res) => {
     message: req.flash("aMessage"),
     status: req.flash("aStatus"),
   };
-  console.log(dataReturner);
+  dataReturner.username = req.session.user.username;
   res.render("admin/category/create", dataReturner);
 };
 
@@ -53,6 +55,7 @@ const editView = async (req, res) => {
     message: req.flash("aMessage"),
     status: req.flash("aStatus"),
   };
+  dataReturner.username = req.session.user.username;
   res.render("admin/category/edit", dataReturner);
 };
 

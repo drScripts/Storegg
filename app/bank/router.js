@@ -8,7 +8,9 @@ const {
   actionDelete,
 } = require("./controller");
 const app = express.Router();
+const { isLoginAdmin } = require("../middleware/auth");
 
+app.use(isLoginAdmin);
 app.get("/", index);
 app.get("/create", createView);
 app.post("/create", actionCreate);

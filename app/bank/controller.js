@@ -14,6 +14,7 @@ const returnData = {
   data: null,
   title: "Storegg Admin | Bank",
   url: "bank",
+  username: null,
 };
 
 const index = async (req, res) => {
@@ -23,6 +24,7 @@ const index = async (req, res) => {
     status: req.flash("aStatus"),
   };
   returnData.data = data;
+  returnData.username = req.session.user.username;
   res.render("admin/bank", returnData);
 };
 
@@ -32,6 +34,7 @@ const createView = async (req, res) => {
     status: req.flash("aStatus"),
   };
 
+  returnData.username = req.session.user.username;
   res.render("admin/bank/create", returnData);
 };
 
@@ -56,7 +59,7 @@ const editView = async (req, res) => {
   const { data } = await getById(id);
 
   returnData.data = data;
-  console.log(returnData);
+  returnData.username = req.session.user.username;
   res.render("admin/bank/edit", returnData);
 };
 

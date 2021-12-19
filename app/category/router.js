@@ -8,7 +8,9 @@ const {
   putAction,
   deleteAction,
 } = require("./controller");
+const { isLoginAdmin } = require("../middleware/auth");
 
+router.use(isLoginAdmin);
 router.get("/", category);
 
 router.get("/create", createView);

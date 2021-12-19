@@ -14,6 +14,7 @@ const returnData = {
   data: null,
   title: "Storegg Admin | Nominal",
   url: "nominal",
+  username: null,
 };
 
 const getNominal = async (req, res) => {
@@ -22,6 +23,7 @@ const getNominal = async (req, res) => {
 
   returnData.data = await getData();
 
+  returnData.username = req.session.user.username;
   res.render("admin/nominal", returnData);
 };
 
@@ -29,6 +31,7 @@ const createView = async (req, res) => {
   returnData.alert.message = req.flash("aMessage");
   returnData.alert.status = req.flash("aStatus");
 
+  returnData.username = req.session.user.username;
   res.render("admin/nominal/create", returnData);
 };
 
@@ -68,6 +71,7 @@ const editView = async (req, res) => {
   const { data } = await getById(id);
   returnData.data = data;
 
+  returnData.username = req.session.user.username;
   res.render("admin/nominal/edit", returnData);
 };
 

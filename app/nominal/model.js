@@ -5,20 +5,23 @@ const returnData = {
   status: null,
 };
 
-let nominalScheme = mongoose.Schema({
-  coinQuantity: {
-    type: Number,
-    default: 0,
+let nominalScheme = mongoose.Schema(
+  {
+    coinQuantity: {
+      type: Number,
+      default: 0,
+    },
+    coinName: {
+      type: String,
+      require: [true, "Nama coin harus diisi"],
+    },
+    price: {
+      type: Number,
+      default: 0,
+    },
   },
-  coinName: {
-    type: String,
-    require: [true, "Nama coin harus diisi"],
-  },
-  price: {
-    type: Number,
-    default: 0,
-  },
-});
+  { timestamps: true }
+);
 
 const Nominal = mongoose.model("Nominal", nominalScheme);
 

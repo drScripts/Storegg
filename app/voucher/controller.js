@@ -21,6 +21,7 @@ const returnData = {
   data: null,
   title: "Storegg Admin | Voucher",
   url: "voucher",
+  username: null,
 };
 
 const index = async (req, res) => {
@@ -30,7 +31,7 @@ const index = async (req, res) => {
   };
 
   returnData.data = await getData();
-  console.log(returnData.data);
+  returnData.username = req.session.user.username;
   res.render("admin/voucher", returnData);
 };
 
@@ -49,6 +50,7 @@ const createView = async (req, res) => {
     nominal: dataNominal,
   };
 
+  returnData.username = req.session.user.username;
   res.render("admin/voucher/create", returnData);
 };
 
@@ -120,7 +122,7 @@ const editView = async (req, res) => {
   returnData.data = data;
   returnData.categorys = await getCategory();
   returnData.nominal = await getDataNominal();
-  console.log(returnData);
+  returnData.username = req.session.user.username;
   res.render("admin/voucher/edit", returnData);
 };
 

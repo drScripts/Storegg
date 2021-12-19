@@ -5,20 +5,23 @@ const returnData = {
   status: null,
 };
 
-const bankSchema = mongoose.Schema({
-  name: {
-    type: String,
-    require: [true, "Banker Name must be filled"],
+const bankSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      require: [true, "Banker Name must be filled"],
+    },
+    bankName: {
+      type: String,
+      require: [true, "Bank Name must be filled"],
+    },
+    nomorRek: {
+      type: String,
+      require: [true, "Rek Number must be filled"],
+    },
   },
-  bankName: {
-    type: String,
-    require: [true, "Bank Name must be filled"],
-  },
-  nomorRek: {
-    type: String,
-    require: [true, "Rek Number must be filled"],
-  },
-});
+  { timestamps: true }
+);
 
 const Bank = mongoose.model("Bank", bankSchema);
 

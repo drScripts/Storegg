@@ -10,7 +10,9 @@ const {
   editAction,
   deleteAction,
 } = require("./controller");
+const { isLoginAdmin } = require("../middleware/auth");
 
+app.use(isLoginAdmin);
 app.get("/", index);
 app.get("/create", createView);
 app.post("/create", actionCreate);

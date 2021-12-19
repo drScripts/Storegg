@@ -5,34 +5,37 @@ const returnData = {
   status: null,
 };
 
-let voucherShcema = mongoose.Schema({
-  name: {
-    type: String,
-    require: [true, "Nama game harus diisi"],
-  },
-  status: {
-    type: String,
-    enum: ["Y", "N"],
-    default: "Y",
-  },
-  thumbnail: {
-    type: String,
-  },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
-  },
-  nominals: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Nominal",
+let voucherShcema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      require: [true, "Nama game harus diisi"],
     },
-  ],
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    status: {
+      type: String,
+      enum: ["Y", "N"],
+      default: "Y",
+    },
+    thumbnail: {
+      type: String,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+    },
+    nominals: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Nominal",
+      },
+    ],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
-});
+  { timestamps: true }
+);
 
 const Voucher = mongoose.model("Voucher", voucherShcema);
 

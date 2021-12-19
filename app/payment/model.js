@@ -5,23 +5,26 @@ const returnData = {
   status: null,
 };
 
-const paymentSchema = mongoose.Schema({
-  type: {
-    type: "String",
-    require: [true, "Payment Type Required"],
-  },
-  status: {
-    type: String,
-    enum: ["Y", "N"],
-    default: "Y",
-  },
-  banks: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Bank",
+const paymentSchema = mongoose.Schema(
+  {
+    type: {
+      type: "String",
+      require: [true, "Payment Type Required"],
     },
-  ],
-});
+    status: {
+      type: String,
+      enum: ["Y", "N"],
+      default: "Y",
+    },
+    banks: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Bank",
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
 const Payment = mongoose.model("Payment", paymentSchema);
 
