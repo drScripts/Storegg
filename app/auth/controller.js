@@ -33,21 +33,40 @@ const signUp = async (req, res) => {
       src.pipe(destDir);
 
       src.on("end", async () => {
-        payload = await addData(
-          email,
-          password,
-          phoneNumber,
-          username,
-          name,
-          filename,
-          favorite
-        );
+        try {
+          payload = await addData(
+            email,
+            password,
+            phoneNumber,
+            username,
+            name,
+            filename,
+            favorite
+          );
 
-        delete payload._doc.password;
-        returnData.message = "Success SignUp";
-        returnData.status = 201;
-        returnData.data = payload;
-        res.status(201).json(returnData);
+          delete payload._doc.password;
+          returnData.message = "Success SignUp";
+          returnData.status = 201;
+          returnData.data = payload;
+          res.status(201).json(returnData);
+        } catch (error) {
+          returnData.data = null;
+          if (
+            (error && error.name === "ValidationError") ||
+            error.code === 11000
+          ) {
+            returnData.message =
+              error.code === 11000 ? "Email Has Been Taken" : error.message;
+            returnData.status = 422;
+            returnData.fields = error.errors;
+            res.status(422).json(returnData);
+          } else {
+            returnData.message = error.message;
+            returnData.status = 422;
+            returnData.fields = error.errors;
+            res.status(422).json(returnData);
+          }
+        }
       });
     } else {
       payload = await addData(
