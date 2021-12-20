@@ -188,8 +188,6 @@ const actionDelete = async (req, res) => {
   const { id } = req.params;
 
   const { message, status } = await deleteData(id);
-  console.log("STATUS" + message + status);
-  req.flash("aMessage", message);
   req.flash("aStatus", status);
 
   res.redirect("/voucher");

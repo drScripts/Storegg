@@ -119,7 +119,6 @@ const signIn = async (req, res) => {
 
     res.status(returnData.status).json(returnData);
   } catch (error) {
-    console.log(error);
     returnData.message = error.message ?? "Internal Server Error";
     returnData.status = 500;
     res.status(500).json(returnData);

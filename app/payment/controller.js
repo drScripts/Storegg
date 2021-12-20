@@ -34,7 +34,6 @@ const index = async (req, res) => {
 const createView = async (req, res) => {
   const { data } = await getBankData();
   returnData.banks = data;
-  console.log(returnData);
   returnData.alert = {
     message: req.flash("aMessage"),
     status: req.flash("aStatus"),

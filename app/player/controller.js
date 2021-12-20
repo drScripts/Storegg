@@ -148,7 +148,6 @@ const getDataHistory = async (req, res) => {
 
     dataReturn.data = await getDataByStatus(status, id);
     dataReturn.total = await getTotalTransaction(status, id);
-    console.log(dataReturn);
     dataReturn.message = "Success get data history";
     dataReturn.status = 200;
 

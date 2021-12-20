@@ -50,7 +50,6 @@ const editView = async (req, res) => {
   const id = req.params.id;
   const data = await getSingleCategory(id);
   dataReturner.data = data;
-  console.log(dataReturner);
   dataReturner.alert = {
     message: req.flash("aMessage"),
     status: req.flash("aStatus"),

@@ -17,7 +17,6 @@ const index = async (req, res) => {
     productCount: await countProduct(),
     transactionCount: await countTransaction(),
   };
-  console.log(dataReturner);
   res.render("index", dataReturner);
 };
 
