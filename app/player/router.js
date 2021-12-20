@@ -14,11 +14,13 @@ const {
   dashboard,
   profile,
   updateProfile,
+  getCategorydata,
 } = require("./controller");
 const { isAuthToken } = require("../middleware/auth");
 
 app.get("/landingpage", landingPage);
 app.get("/:id/detail", detailPage);
+app.get("/category", getCategorydata);
 
 app.post("/checkout", isAuthToken, checkout);
 app.get("/history", isAuthToken, getDataHistory);

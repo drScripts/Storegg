@@ -288,6 +288,22 @@ const updateProfile = async (req, res, next) => {
   }
 };
 
+const getCategorydata = async (req, res) => {
+  try {
+    const { data } = await getCategory();
+
+    dataReturn.data = data;
+    dataReturn.message = "Success Get Data";
+    dataReturn.status = 200;
+    res.status(dataReturn.status).json(dataReturn);
+  } catch (error) {
+    dataReturn.data = null;
+    dataReturn.message = error.message || "Internal Server Error";
+    dataReturn.status = 500;
+    res.status(500).json(dataReturn);
+  }
+};
+
 module.exports = {
   landingPage,
   detailPage,
@@ -297,4 +313,5 @@ module.exports = {
   dashboard,
   profile,
   updateProfile,
+  getCategorydata
 };
