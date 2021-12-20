@@ -54,6 +54,7 @@ const detailPage = async (req, res) => {
 
     const voucher = await getDetailPageData(id);
     dataReturn.data = voucher ?? "Voucher tidak ditemukan";
+    delete dataReturn.data._doc.user._doc.password;
     dataReturn.message = "Success Get Data!";
     dataReturn.status = 200;
 
@@ -253,7 +254,7 @@ const updateProfile = async (req, res, next) => {
       src.pipe(dest);
 
       src.on("end", async () => {
-        const player = await updateData(id, {
+        await updateData(id, {
           name: name,
           email: email,
           phoneNumber: phoneNumber,
@@ -264,7 +265,7 @@ const updateProfile = async (req, res, next) => {
         res.status(201).json(dataReturn);
       });
     } else {
-      const player = await updateData(id, {
+      await updateData(id, {
         name: name,
         email: email,
         phoneNumber: phoneNumber,
