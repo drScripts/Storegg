@@ -6,7 +6,10 @@ const {
 
 const { getById: getNominalData } = require("../nominal/model");
 
-const { getDataById: getPaymentData } = require("../payment/model");
+const {
+  getDataById: getPaymentData,
+  getData: getAllPayment,
+} = require("../payment/model");
 
 const { getById: getBankData } = require("../bank/model");
 
@@ -53,8 +56,10 @@ const detailPage = async (req, res) => {
     const { id } = req.params;
 
     const voucher = await getDetailPageData(id);
+    const { data: payment } = await getAllPayment();
     dataReturn.data = voucher ?? "Voucher tidak ditemukan";
     delete dataReturn.data._doc.user._doc.password;
+    dataReturn.payment = payment;
     dataReturn.message = "Success Get Data!";
     dataReturn.status = 200;
 
