@@ -14,7 +14,7 @@
       <td class="text-center"><%= i.toString() %></td>
       <td><%= data[i-1].name %></td>
       <td><%= data[i-1].bankName %></td>
-      <td><%= data[i-1].nomorRek %></td>
+      <td><%= data[i-1].noRekening %></td>
       <td class="text-center">
         <form action="/bank/<%= data[i-1]._id %>?_method=DELETE" method="post">
           <a href="bank/<%= data[i-1]._id %>" class="btn btn-warning text-white"

@@ -15,7 +15,7 @@ const bankSchema = mongoose.Schema(
       type: String,
       require: [true, "Bank Name must be filled"],
     },
-    nomorRek: {
+    noRekening: {
       type: String,
       require: [true, "Rek Number must be filled"],
     },
@@ -43,7 +43,7 @@ const addData = async (name, bankName, nRek) => {
     await Bank.create({
       name: name,
       bankName: bankName,
-      nomorRek: nRek,
+      noRekening: nRek,
     });
 
     returnData.message = "Success Add Data";
@@ -74,7 +74,7 @@ const updateData = async (id, name, bankName, nRek) => {
       {
         name: name,
         bankName: bankName,
-        nomorRek: nRek,
+        noRekening: nRek,
       }
     );
 

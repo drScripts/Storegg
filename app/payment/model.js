@@ -8,7 +8,7 @@ const returnData = {
 const paymentSchema = mongoose.Schema(
   {
     type: {
-      type: "String",
+      type: String,
       require: [true, "Payment Type Required"],
     },
     status: {

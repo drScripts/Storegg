@@ -1,0 +1,62 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">No.</th>
+      <th>Game Name</th>
+      <th>Thumbnail</th>
+      <th>Item</th>
+      <th>Total</th>
+      <th class="text-center">Player Name</th>
+      <th class="text-center">Status</th>
+      <th class="text-center">Action(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 1; i <= data.length;i++){ %>
+    <tr>
+      <td class="text-center"><%= i.toString() %></td>
+      <td><%= data[i-1].historyVoucherTopup.gameName %></td>
+      <td class="text-center">
+        <img
+        src="/uploads/<%= data[i-1].historyVoucherTopup.thumbnail %>"
+        alt="<%= data[i-1].historyVoucherTopup.gameName %>"
+        width="150"
+        height="150"
+        class="rounded"
+      />
+      </td>
+      <td><%= data[i-1].historyVoucherTopup.coinName %></td>
+      <td><%= data[i-1].value %></td>
+      <td><%= data[i-1].name %></td>
+      <td class="text-center">
+          <div class="badge badge-<%= data[i-1].status === 'success' ? "success": data[i-1].status === 'pending'?'warning' : "danger" %>">
+            <%= data[i-1].status %>
+          </div> 
+      </td>
+      <% if(data[i-1].status !== 'success' && data[i-1].status !== 'failed'){ %>
+      <td class="text-center">
+        <form
+          action="transaction/status/<%= data[i-1]._id %>?_method=PUT"
+          method="post"
+        >
+            <button type="submit" value='success' name="status" class="btn btn-success">
+              <i class="fas fa-check"></i>
+            </button>
+            <button type="submit" value='failed' name='status' class="btn btn-danger">
+              <i class="fas fa-times-circle"></i>
+            </button>
+          </form>
+        </td>
+      <% }else{ %>
+      <td class='text-center'>
+        <% if(data[i-1].status === 'success'){ %>
+          <div class="btn btn-success"><i class="fas fa-check"></i></div>
+        <% }else{ %>
+            <div class="btn btn-danger"><i class="fas fa-times circle"></i></div>
+        <% } %>
+      </td>
+       <%}%>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

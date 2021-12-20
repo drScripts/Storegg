@@ -56,4 +56,6 @@ const getUser = async (email) => {
   return returnData;
 };
 
-module.exports = { getUser };
+const getCount = async () => await User.countDocuments();
+
+module.exports = { getUser, getCount };

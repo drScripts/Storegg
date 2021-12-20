@@ -118,6 +118,8 @@ const deleteData = async (id) => {
   return returnData;
 };
 
+const getCount = async () => await Voucher.countDocuments();
+
 module.exports = {
   getData,
   addData,
@@ -125,4 +127,5 @@ module.exports = {
   getDataById,
   updateData,
   deleteData,
+  getCount,
 };
