@@ -7,4 +7,5 @@ module.exports = {
   dbUrl: process.env.MONGO_URL,
   mode: process.env.MODE,
   rootPath: path.resolve(__dirname, ".."),
+  jwtKey: process.env.SECRET,
 };

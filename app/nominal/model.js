@@ -89,4 +89,10 @@ const updateData = async (id, name, price, quantity) => {
   return returnData;
 };
 
-module.exports = { getData, addData, deleteData, getById, updateData };
+module.exports = {
+  getData,
+  addData,
+  deleteData,
+  getById,
+  updateData,
+};

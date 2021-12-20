@@ -40,7 +40,10 @@ let voucherShcema = mongoose.Schema(
 const Voucher = mongoose.model("Voucher", voucherShcema);
 
 const getData = async () => {
-  return await Voucher.find().populate("category").populate("nominals");
+  return await Voucher.find()
+    .populate("category")
+    .populate("nominals")
+    .populate("user");
 };
 
 const addData = async (name, thumbnail, category, nominals) => {
@@ -80,7 +83,10 @@ const updateStatus = async (id, status) => {
 };
 
 const getDataById = async (id) => {
-  return await Voucher.findById(id).populate("category").populate("nominals");
+  return await Voucher.findById(id)
+    .populate("category")
+    .populate("nominals")
+    .populate("user");
 };
 
 const updateData = async (id, name, thumbnail, category, nominals) => {
@@ -120,6 +126,16 @@ const deleteData = async (id) => {
 
 const getCount = async () => await Voucher.countDocuments();
 
+const getLandingPageData = async () =>
+  await Voucher.find()
+    .select("_id name status category thumbnail")
+    .populate("category");
+
+const getCheckoutData = async (id) =>
+  await Voucher.findOne({ _id: id })
+    .select("name category id thumbnail user")
+    .populate("user")
+    .populate("category");
 module.exports = {
   getData,
   addData,
@@ -128,4 +144,6 @@ module.exports = {
   updateData,
   deleteData,
   getCount,
+  getLandingPageData,
+  getCheckoutData,
 };

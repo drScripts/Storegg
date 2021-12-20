@@ -6,6 +6,7 @@ var logger = require("morgan");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
+const cors = require("cors");
 
 var categoryRouter = require("./app/category/router");
 var indexRouter = require("./app/dashboard/router");
@@ -15,14 +16,17 @@ var bankRouter = require("./app/bank/router");
 var paymentRouter = require("./app/payment/router");
 var userRouter = require("./app/user/router");
 var transactionRouter = require("./app/transaction/router");
-
-const { isLoginAdmin } = require("./app/middleware/auth");
+var playerRouter = require("./app/player/router");
+var apiAuthRouter = require("./app/auth/router");
 var app = express();
+
+const apiURL = "/api/v1";
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(cors());
 app.use(
   session({
     secret: "keyboard cat",
@@ -44,6 +48,12 @@ app.use(
   express.static(path.join(__dirname, "/node_modules/admin-lte"))
 );
 
+/**
+ *
+ * ADMIN ROUTER
+ *
+ */
+
 app.use("/dashboard", indexRouter);
 app.use("/", userRouter);
 app.use("/category", categoryRouter);
@@ -52,6 +62,14 @@ app.use("/voucher", voucherRouter);
 app.use("/bank", bankRouter);
 app.use("/payment", paymentRouter);
 app.use("/transaction", transactionRouter);
+
+/**
+ *
+ * API
+ *
+ */
+app.use(`${apiURL}/players`, playerRouter);
+app.use(`${apiURL}/auth`, apiAuthRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
