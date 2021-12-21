@@ -1,14 +1,24 @@
 import DetailItem from './detail-item'
 
-export default function Payment() {
+interface PaymentProps {
+    accountName: string,
+    type: string,
+    bankName: string,
+    bankAccountName: string,
+    bankNumber: string,
+}
+
+export default function Payment(props: PaymentProps) {
+
+    const { accountName, bankAccountName, bankName, bankNumber, type } = props
     return (
         <div className="payment pt-10 pb-10">
             <h2 className="fw-bold text-xl color-palette-1 mb-20">Payment Informations</h2>
-            <DetailItem title='Your Account Name' value='Masayoshi Angga Zero' />
-            <DetailItem title='Type' value='Worldwide Transfer' />
-            <DetailItem title='Bank Name' value='Mandiri' />
-            <DetailItem title='Bank Account Name' value='PT Store GG Indonesia' />
-            <DetailItem title='Bank Number' value='1800 - 9090 - 2021' />
+            <DetailItem title='Your Account Name' value={accountName} />
+            <DetailItem title='Type' value={type} />
+            <DetailItem title='Bank Name' value={bankName} />
+            <DetailItem title='Bank Account Name' value={bankAccountName} />
+            <DetailItem isRek title='Bank Number' value={bankNumber} />
         </div>
     )
 }

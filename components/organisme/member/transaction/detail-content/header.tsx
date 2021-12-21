@@ -3,7 +3,7 @@ import cx from 'classnames'
 interface HeaderProps {
     title: string
     deviceCat: string
-    status: 'pending' | 'success' | 'failed'
+    status: string
     imgSrc: string
 }
 
@@ -21,13 +21,14 @@ export default function Header(props: HeaderProps) {
         'failed': status === 'failed'
     })
 
+    const URL_IMAGEPUBLIC = process.env.NEXT_PUBLIC_API_PUBLIC_IMAGE
 
     return (
         <div className="d-flex flex-row  align-items-center justify-content-between mb-30">
             <div className="game-checkout d-flex flex-row align-items-center">
                 <div className="pe-4">
                     <div className="cropped">
-                        <img src={`/img/${imgSrc}`} width="200" height="130"
+                        <img src={`${URL_IMAGEPUBLIC}/${imgSrc}`} width="200" height="130"
                             className="img-fluid" alt="" />
                     </div>
                 </div>

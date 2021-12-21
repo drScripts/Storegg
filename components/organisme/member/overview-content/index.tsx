@@ -1,7 +1,39 @@
+import Cookies from 'js-cookie'
+import { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import { atob } from '../../../../services/converter'
+import { getMemberOverview } from '../../../../services/player'
 import LatestTransaction from '../latest-transaction'
 import MemberItemSpend from '../member-item-spend'
+import { DashboardCount, HistoryTransaction } from '../../../../services/data-types'
 
 export default function OverviewContent() {
+
+    const [count, setcount] = useState([] as Array<DashboardCount>)
+    const [History, setHistory] = useState([] as Array<HistoryTransaction>)
+
+
+    const getMemberOverViewData = useCallback(async (token: string) => {
+
+        const response = await getMemberOverview(token).catch(e => e.response)
+        if (response.status !== 200) {
+            toast.error("Can't Connect to Server")
+        } else {
+            const { count, history } = response.data
+            count as Array<DashboardCount>
+            history as Array<HistoryTransaction>
+            setcount(count)
+            setHistory(history)
+        }
+
+    }, [getMemberOverview])
+
+    useEffect(() => {
+        const token = Cookies.get("utkn") ?? "";
+        const parsedToken = atob(token);
+        getMemberOverViewData(parsedToken);
+    }, [])
+
     return (
         <main className="main-wrapper">
             <div className="ps-lg-0">
@@ -10,13 +42,17 @@ export default function OverviewContent() {
                     <p className="text-lg fw-medium color-palette-1 mb-14">Top Up Categories</p>
                     <div className="main-content">
                         <div className="row">
-                            <MemberItemSpend category="Desktop" spend="18.000.500" typeCat="Game" icon="desktop-game-icon" />
-                            <MemberItemSpend category="Mobile" spend="8.455.000" typeCat="Game" icon="mobile-game-icon" />
-                            <MemberItemSpend category="Categories" spend="5.000.000" typeCat="Other" icon="desktop-game-icon" />
+                            {
+                                count.map(val => {
+                                    return (
+                                        <MemberItemSpend category={val.name} key={val._id} spend={`${val.value}`} typeCat="Game" icon={val.name == "Mobile" ? "mobile-game-icon" : "desktop-game-icon"} />
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                 </div>
-                <LatestTransaction />
+                <LatestTransaction dataHistory={History} />
             </div>
         </main>
     )

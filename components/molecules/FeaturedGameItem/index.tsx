@@ -2,19 +2,23 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export interface FeaturedGameItemProps {
-    src: "Thumbnail-1" | "Thumbnail-2" | "Thumbnail-3" | "Thumbnail-4" | "Thumbnail-5"
+    src: String
     name: string
     device: string
+    id: string
 }
 
 export default function FeaturedGameItem(props: FeaturedGameItemProps) {
-    const { src, name, device } = props
+    const { src, name, device, id } = props
+
+    const API_IMAGE = process.env.NEXT_PUBLIC_API_PUBLIC_IMAGE
+
     return (
         <div className="featured-game-card position-relative">
-            <Link href="/detail">
+            <Link href={`/detail/${id}`}>
                 <a>
                     <div className="blur-sharp">
-                        <Image className="thumbnail" src={`/img/${src}.png`} width={205} height={270} alt="" />
+                        <Image className="thumbnail" src={`${API_IMAGE}/${src}`} width={205} height={270} alt="" />
                     </div>
                     <div className="cover position-absolute bottom-0 m-32">
                         <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">

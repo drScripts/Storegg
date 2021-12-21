@@ -7,6 +7,8 @@ interface MenuItemProps {
     link: string
     isActive?: boolean
     imgSrc: 'overview-icon' | 'card-icon' | 'logout-icon' | 'messages-icon' | 'reward-icon' | 'setting-icon' | 'top-up-icon' | 'transaction-icon'
+
+
 }
 
 export default function MenuItem(props: MenuItemProps) {

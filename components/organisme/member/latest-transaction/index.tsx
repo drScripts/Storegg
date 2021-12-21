@@ -1,11 +1,13 @@
+import { HistoryTransaction } from '../../../../services/data-types'
 import TableHistoryItem from '../table-history-item'
 
 interface LatestTransactionProps {
     isAction?: boolean
+    dataHistory?: Array<HistoryTransaction>
 }
 
 export default function LatestTransaction(props: LatestTransactionProps) {
-    const { isAction = false } = props
+    const { isAction = false, dataHistory } = props
     return (
         <div className="latest-transaction">
             <p className="text-lg fw-medium color-palette-1 mb-14">Latest Transactions</p>
@@ -18,16 +20,18 @@ export default function LatestTransaction(props: LatestTransactionProps) {
                             <th scope="col">Price</th>
                             <th scope="col">Status</th>
                             {
-                                isAction ?
-                                    <th scope="col">Action</th> : ''
+                                isAction ? <th scope="col">Action</th> : <></>
                             }
                         </tr>
                     </thead>
                     <tbody>
-                        <TableHistoryItem isAction={isAction} deviceType="Desktop" gameName="Mobile Legends: The New Battle 2021" item="200 Gold" price="290.000" status="Pending" imageSrc="overview-1.png" />
-                        <TableHistoryItem isAction={isAction} deviceType="Mobile" gameName="Call of Duty: Modern" item="550 Gold" price="740.000" status="Success" imageSrc="overview-2.png" />
-                        <TableHistoryItem isAction={isAction} deviceType="Mobile" gameName="Clash of Clans" item="100 Gold" price="120.000" status="Failed" imageSrc="overview-3.png" />
-                        <TableHistoryItem isAction={isAction} deviceType="Mobile" gameName="The Royal Game" item="225 Gold" price="200.000" status="Pending" imageSrc="overview-4.png" />
+                        {
+                            dataHistory?.map(val => {
+                                return (
+                                    <TableHistoryItem key={val._id} isAction={isAction} deviceType={val.category.name ?? val.historyVoucherTopup.category} gameName={val.historyVoucherTopup.gameName} item={`${val.historyVoucherTopup.coinQuantity} ${val.historyVoucherTopup.coinName}`} price={`${val.value}`} status={val.status} imageSrc={val.historyVoucherTopup.thumbnail} href={`/member/transactions/${val._id}`} />
+                                )
+                            })
+                        }
                     </tbody>
                 </table>
             </div>

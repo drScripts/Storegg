@@ -1,16 +1,17 @@
 import Link from 'next/link'
 import cx from 'classnames'
+import { MouseEventHandler } from 'react'
 
 interface ButtonCategoryProps {
     isActive?: boolean
     title: string
-    href: string
     dataFilter: string
+    onClick: MouseEventHandler<HTMLButtonElement>
 }
 
 export default function ButtonCategory(props: ButtonCategoryProps) {
 
-    const { isActive = false, title, href, dataFilter } = props
+    const { isActive = false, title, dataFilter, onClick } = props
 
     const className = cx({
         'btn': true,
@@ -22,8 +23,6 @@ export default function ButtonCategory(props: ButtonCategoryProps) {
     })
 
     return (
-        <Link href={href}>
-            <a data-filter={dataFilter} className={className}>{title}</a>
-        </Link>
+        <button data-filter={dataFilter} className={className} onClick={onClick}>{title}</button>
     )
 }

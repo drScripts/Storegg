@@ -1,0 +1,3 @@
+NEXT_PUBLIC_API_URL = https://storegg-api.herokuapp.com
+NEXT_PUBLIC_API_PUBLIC_IMAGE = https://storegg-api.herokuapp.com/uploads
+NEXT_PUBLIC_API_USER_IMAGE = https://storegg-api.herokuapp.com/users
