@@ -214,7 +214,7 @@ const dashboard = async (req, res) => {
       history: history,
     };
 
-    res.status(dataReturn.data).json(dataReturn);
+    res.status(dataReturn.status).json(dataReturn);
   } catch (error) {
     dataReturn.data = null;
     dataReturn.message = error.message || "Internal Server Error";
@@ -313,5 +313,5 @@ module.exports = {
   dashboard,
   profile,
   updateProfile,
-  getCategorydata
+  getCategorydata,
 };
